@@ -1,0 +1,33 @@
+.smallHeading {
+    font-size: x-large;
+    padding-bottom: 20px;
+}
+
+.rcorners {
+    border-radius: 25px;
+    background: #F2F2F2;
+    padding: 20px;
+}
+
+.thead {
+    background-color: #3487E2;
+    color: white;
+    padding: 10px;
+}
+
+.smallHeading {
+    font-size: x-large;
+    padding-bottom: 20px;
+    padding-top: 20px;
+}
+
+.number {
+    color: #3487E2;
+    font-weight: bold;
+    padding-bottom: 20px;
+    font-size: 50px;
+}
+
+.p {
+    text-align: center;
+}
