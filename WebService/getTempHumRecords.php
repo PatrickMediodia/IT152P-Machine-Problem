@@ -1,7 +1,7 @@
 <?php
     include_once('connects.php');
 
-    $query = "SELECT * FROM `temphumrecords`";
+    $query = "SELECT * FROM `temphumrecords` ORDER BY id DESC";
     $check = mysqli_query($con,$query);
     $row = mysqli_num_rows($check);
     
@@ -9,9 +9,13 @@
 
     echo '{ "data" : ';
     while($row=mysqli_fetch_array($check)) {    
-        $record = [$row['temperature'],
-        $row['humidity'],
-        $row['recordDateTime']];
+        $record = [
+            $row['id'],
+            $row['temperature'],
+            $row['desiredTemp'],
+            $row['humidity'],
+            $row['recordDateTime']
+        ];
 
         array_push($records, $record);
     }
