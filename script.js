@@ -2,19 +2,27 @@ $(document).ready(function() {
     var table = $('#example').DataTable({
 
         //add color if temp is too hot
-        "createdRow": function( row, data, dataIndex ) {
-            console.log(data[1], data[2]);
-            if (data[1] > data[2]) {        
-            $(row).css('background-color', 'rgba(128,0,0,0.8)');
-            $(row).css('color', 'rgba(255,255,255,0.8)');
-        }},
+        "createdRow": function(row, data, dataIndex) {
+            if (data[1] > data[3]) {        
+                $(row).css('background-color', 'rgba(128,0,0,0.8)');
+                $(row).css('color', 'rgba(255,255,255,0.8)');
+            }
+            else if (data[1] < data[2]){
+                $(row).css('background-color', 'rgba(0,0,128,0.8)');
+                $(row).css('color', 'rgba(255,255,255,0.8)');
+            }
+            else{
+                $(row).css('background-color', 'rgba(0,128,0,0.8)');
+                $(row).css('color', 'rgba(255,255,255,0.8)');
+            }
+        },
 
         //order by id, descending
-        "order": [[ 0, "desc" ]],        
+        "order": [[0, "desc"]],        
 
         //hide id
         "columnDefs": [{
-            "targets": [ 0 ],
+            "targets": [0],
             "visible": false,
             "searchable": false 
         }],
@@ -29,11 +37,11 @@ $(document).ready(function() {
     }, 1000);
 
     getAverageRecords();
-    getDesiredTemp();
+    getHumidityRange();
     updateDeviceStatus();
 
     setInterval(getAverageRecords, 1000);
-    setInterval(getDesiredTemp, 1000);
+    setInterval(getHumidityRange, 1000);
     setInterval(updateDeviceStatus, 1000);
 });
 
@@ -49,32 +57,32 @@ function getAverageRecords() {
     });
 }
 
-function getDesiredTemp() {
+function getHumidityRange() {
     $.ajax({
         type: 'POST',
-        url: 'WebService/getDesiredTemp.php',
+        url: 'WebService/getHumidityRange.php',
         success: function(data) {
-            $('#desiredTemp').html(data);
+            $('#humidityRange').html(data);
         }
     });
 }
 
-function getCurrentTemp() {
+function getCurrentHumidity() {
     $.ajax({
         type: 'POST',
-        url: 'WebService/getCurrentTemp.php',
+        url: 'WebService/getCurrentHumidity.php',
         success: function(data) {
-            $('#currentTemp').html(data);
+            $('#currentHumidity').html(data);
         }
     });
 }
 
-function updateFanStatus() {
+function updateHumidifierStatus() {
     $.ajax({
         type: 'POST',
-        url: 'WebService/getFanStatus.php',
+        url: 'WebService/getDehumidifierStatus.php',
         success: function(data) {
-            $('#fanStatus').html(data);
+            $('#humidifierStatus').html(data);
         }
     });
 }
@@ -86,12 +94,12 @@ function updateDeviceStatus() {
         success: function(data) {
             $('#deviceStatus').html(data);
             if(data == "OFFLINE") {
-                $('#fanStatus').html("OFF");
-                $('#currentTemp').html("N/A");
+                $('#humidifierStatus').html("OFF");
+                $('#currentHumidity').html("N/A");
             }
             else {
-                updateFanStatus();
-                getCurrentTemp();
+                updateHumidifierStatus();
+                getCurrentHumidity();
             }
         }
     });
