@@ -4,16 +4,16 @@ $(document).ready(function() {
         //add color if temp is too hot
         "createdRow": function(row, data, dataIndex) {
             if (data[1] > data[3]) {        
-                $(row).css('background-color', 'rgba(128,0,0,0.8)');
-                $(row).css('color', 'rgba(255,255,255,0.8)');
+                $(row).css('background-color', 'rgba(255, 222, 222, 1)');
+                $(row).css('color', 'red');
             }
             else if (data[1] < data[2]){
-                $(row).css('background-color', 'rgba(0,0,128,0.8)');
-                $(row).css('color', 'rgba(255,255,255,0.8)');
+                $(row).css('background-color', 'rgba(212, 227, 255, 1)');
+                $(row).css('color', 'blue');
             }
             else{
-                $(row).css('background-color', 'rgba(0,128,0,0.8)');
-                $(row).css('color', 'rgba(255,255,255,0.8)');
+                $(row).css('background-color', 'rgba(220, 255, 211, 1)');
+                $(row).css('color', 'green');
             }
         },
 
@@ -22,10 +22,22 @@ $(document).ready(function() {
 
         //hide id
         "columnDefs": [{
-            "targets": [0],
-            "visible": false,
-            "searchable": false 
-        }],
+                "targets": [0],
+                "visible": false,
+                "searchable": false 
+            },
+            {
+                targets: [1, 2, 3],
+                render: function(data) {
+                    return data + '%';
+                }
+            },
+            {
+                targets: [4],
+                render: function(data) {
+                    return data + '°C';
+                }
+            }],
 
         //get data from web service
         ajax: "WebService/getTempHumRecords.php"
@@ -51,8 +63,8 @@ function getAverageRecords() {
         url: 'WebService/getAverageTempHum.php',
         success: function(data) {
             const split_data = data.split(',');
-            $('#averageTemp').html(split_data[0]);
-            $('#averageHum').html(split_data[1]);
+            $('#averageTemp').html(split_data[0] + "°C");
+            $('#averageHum').html(split_data[1] + "%");
         }
     });
 }
@@ -72,7 +84,7 @@ function getCurrentHumidity() {
         type: 'POST',
         url: 'WebService/getCurrentHumidity.php',
         success: function(data) {
-            $('#currentHumidity').html(data);
+            $('#currentHumidity').html(data + "%");
         }
     });
 }
@@ -82,7 +94,14 @@ function updateHumidifierStatus() {
         type: 'POST',
         url: 'WebService/getDehumidifierStatus.php',
         success: function(data) {
-            $('#humidifierStatus').html(data);
+            var dehumidifierStatus;
+            if(data == "LOW") {
+                dehumidifierStatus = "OFF : ";
+            }
+            else {
+                dehumidifierStatus = "ON : "
+            } 
+            $('#dehumidifierStatus').html(dehumidifierStatus + data);
         }
     });
 }
@@ -94,7 +113,7 @@ function updateDeviceStatus() {
         success: function(data) {
             $('#deviceStatus').html(data);
             if(data == "OFFLINE") {
-                $('#humidifierStatus').html("OFF");
+                $('#dehumidifierStatus').html("OFF");
                 $('#currentHumidity').html("N/A");
             }
             else {
