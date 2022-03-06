@@ -9,12 +9,16 @@
 
     echo '{ "data" : ';
     while($row=mysqli_fetch_array($check)) {    
+        $timeStamp = $row['timestamp'];
+        $timeStamp = date( "M d Y h:i a", strtotime($timeStamp));
+
         $record = [
             $row['id'],
-            $row['temperature'],
-            $row['desiredTemp'],
             $row['humidity'],
-            $row['recordDateTime']
+            $row['minHumidity'],
+            $row['maxHumidity'],
+            $row['temperature'],
+            $timeStamp 
         ];
 
         array_push($records, $record);
