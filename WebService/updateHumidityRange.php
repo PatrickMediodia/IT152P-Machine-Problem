@@ -3,9 +3,10 @@
 include_once('connects.php');
 
 if (isset($_POST['submit'])) {
-	$temperature = $_POST['desiredTemp'];
+	$minHumidity = $_POST['minHumidity'];
+	$maxHumidity = $_POST['maxHumidity'];
 
-	$query = "UPDATE temperature SET desiredTemp = '$temperature' ";
+	$query = "UPDATE humidity SET maxHumidity = '$maxHumidity', minHumidity = '$minHumidity';";
 	$result = mysqli_query($con,$query);
 
 	if($result) {

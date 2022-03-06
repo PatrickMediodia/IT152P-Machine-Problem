@@ -1,18 +1,26 @@
 <?php 
 
 include_once('connects.php');
-$temp = $_GET['temp'];
+
+//get temp and hum from URL
 $hum = $_GET['hum'];
+$temp = $_GET['temp'];
 
-date_default_timezone_set('Asia/Manila');
-$date = date('m/d/Y h:i a', time());
+//get high humidity
+$query = "SELECT * FROM humidity";
+$data =  mysqli_query($con, $query);
+$row = mysqli_fetch_assoc($data); 
+$minHumidity = $row['minHumidity'];
+$maxHumidity = $row['maxHumidity'];
 
-$query = "INSERT INTO temphumrecords(temperature, humidity, recordDateTime) VALUES($temp, $hum, '$date')";
-$result = mysqli_query($con, $query);
+//insert new record
+$insert = "INSERT INTO temphumrecords(humidity, minHumidity, maxHumidity, temperature) VALUES($hum, $minHumidity, $maxHumidity, $temp)";
+$result = mysqli_query($con, $insert);
 
+//check if successful
 if($result) {
     echo "Insert Successful\n";
-    echo "{Temp: ", $temp, ", Hum: ", $hum, ", DateTime: ", $date, "}";
+    //echo "{Temp: ", $temp, ", Hum: ", $hum, ", DateTime: ", $date, "}";
 }
 else {
     echo "Error, Insert not successful";
