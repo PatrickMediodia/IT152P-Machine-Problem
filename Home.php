@@ -35,7 +35,7 @@
 <body background="https://wallpaperaccess.com/full/1092564.jpg">
     <div class="container-fluid text-center col-xl-10 col-lg-9 col-md-10 col-sm-11" style="padding-bottom:15px; padding-top:30px;">
         <div class="rcorners">
-            <h1 style="padding-top:30px; padding-bottom:20px; color:#2E6CA4;"><strong>Humidity Monitoring System</strong></h1>
+            <h1 style="padding-top:30px; padding-bottom:20px; color:#2E6CA4;"><strong>Humiditiy Monitoring System</strong></h1>
             <hr>
             <div class="row" style="padding-top:30px;">
                 <!-- Temp/Hum Summary -->
@@ -131,12 +131,13 @@
                 </div>
             </div>
 
-            <!-- legend -->
-            <span><strong>Legend : </strong></span>
-            <span style="color: blue;"><strong>Blue = Low Humidity, </strong></span>
-            <span style="color: green;"><strong>Green = Normal Humidity, </strong></span>
-            <span style="color: red;"><strong>Red = High Humidity</strong></span>
-
+            <div style="padding-bottom:15px; padding-top:15px;">
+                <!-- legend -->
+                <span><strong>Legend : </strong></span>
+                <span style="color: blue;"><strong>Blue = Low Humidity, </strong></span>
+                <span style="color: green;"><strong>Green = Normal Humidity, </strong></span>
+                <span style="color: red;"><strong>Red = High Humidity</strong></span>
+            </div>
         </div>
     </div>
 </body>
