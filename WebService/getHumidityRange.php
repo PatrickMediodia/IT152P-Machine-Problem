@@ -5,5 +5,5 @@
 	$result = mysqli_query($con,$query);
     $row = mysqli_fetch_assoc($result); 
 	
-	echo $row['minHumidity'] , " - ", $row['maxHumidity']; 
+	echo $row['minHumidity'] , "% - ", $row['maxHumidity'] . "%"; 
 ?>
