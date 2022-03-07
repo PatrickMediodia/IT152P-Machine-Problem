@@ -1,6 +1,6 @@
 <?php
 
-include_once('../connects.php');
+include_once('../WebService/connects.php');
 
 if (isset($_POST['submit'])){
     $usernameEmail = $_POST['updateEmail'];
